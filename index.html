@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background: #ffdde1;
+        }
+        h1{
+            color: white;
+            background-color: rgb(186, 58, 186);
+        }
+        button{
+            color: white;
+            background-color: green;
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 15px;
+        }
+        .parent{
+            display: flex;
+            gap: 40px;
+        }
+        .card1{
+            height: 100px;
+            width: 100px;
+            border-radius: 10px;
+            background-image: linear-gradient(to right,indigo,violet);
+            border: 5px solid aliceblue;
+            box-shadow: 5px 5px 5px;
+        }
+        .card2{
+            height: 120px;
+            width: 100px;
+            border-radius: 10px;
+            background-image: linear-gradient(to right,indigo,violet);
+            border: 5px solid aliceblue;
+            box-shadow: 5px 5px 5px;
+        }
+        .card3{
+            height: 100px;
+            width: 100px;
+            border-radius: 10px;
+            background-image: linear-gradient(to right,indigo,violet);
+            border: 5px solid aliceblue;
+            box-shadow: 5px 5px 5px;
+        }
+        h2{
+            text-align: center;
+            color: white;
+        }
+        .containers {
+            text-align: center;
+        }
+        .parent{
+            justify-content: center;
+        }
+        .wish{
+            display: none;
+        }
+        @media (max-width:600px){
+            .containers{
+            display: block;
+            gap: 40px;
+        }
+        @media (max-width:400px){
+            .containers{
+                display: block;
+            }
+        }
+        }
+    </style>
+</head>
+<body>
+<div class="containers">
+    <h1>7 UP or 7 or 7 DOWN</h1>
+    <div class="parent">
+        <div class="card1">
+            <h2>7 UP <br> 2x</h2>
+            </div>
+       
+        <div class="card2">
+            <h2>7 <br> 3x
+            </h2>
+        </div>
+        <div class="card3">
+            <h2>7 down 2x</h2>
+        </div>
+    </div>
+    <input type="text" id="input" placeholder="Enter Bet Amount">
+    <!-- <input type="text" id="input-choice" placeholder="7Up or 7 or 7down"> -->
+    <button onclick="rollon()">Submit</button>
+    <br>
+    <img class="img1" src="" alt="" height="100px" width="100px">
+    <img class="img2" src="" alt="" height="100px" width="100px">
+    <h1></h1>
+    <h1></h1>
+    <img class="wish" src="" alt="" height="200px" width="200px">
+    </div>
+    <script>
+            function win(){
+        let w = new Audio('win.wav')
+        w.play()
+    }
+    function playmusic(){
+        let r = new Audio('dice.mp3.wav')
+        r.play()
+    }
+    function snake(){
+        let s = new Audio('snake.wav')
+        s.play()
+    }
+    function ladder(){
+        let l = new Audio('ladder.wav')
+        l.play()
+    }
+        let choice = ""
+        let balance = 0;
+        L = [1,2,3,4,5,6]
+        document.querySelectorAll("img")[0].setAttribute('src','Dice-Gif.gif')
+        document.querySelectorAll("img")[1].setAttribute('src','Dice-Gif.gif')
+        document.getElementsByClassName("card1")[0].addEventListener('click',card_1)
+        document.getElementsByClassName("card2")[0].addEventListener('click',card_2)
+        document.getElementsByClassName("card3")[0].addEventListener('click',card_3)
+        function card_1(){
+            choice = "7UP"
+            document.getElementsByClassName("card2")[0].style.display = "none"
+            document.getElementsByClassName("card3")[0].style.display = "none"
+
+        }
+        function card_2(){  
+            choice = "7"
+            document.getElementsByClassName("card1")[0].style.display = "none"
+            document.getElementsByClassName("card3")[0].style.display ="none"
+        }
+        function card_3(){
+            choice = "7Down"
+            document.getElementsByClassName("card1")[0].style.display = "none"
+            document.getElementsByClassName("card2")[0].style.display = "none"
+        }
+
+        function playmusic(){
+            let r = new Audio("dice.mp3.wav")
+            r.play()
+        }
+        function rollon(){
+            let bet = Number(document.getElementById("input").value)
+            // let choice1 = Number(document.getElementById("input-choice").value)
+            N = Math.floor(Math.random()*6);
+            V = Math.floor(Math.random()*6);
+            document.getElementsByClassName("img1")[0].setAttribute("src",`D-${L[N]}.PNG`)
+            document.getElementsByClassName("img2")[0].setAttribute("src",`D-${L[V]}.PNG`)
+        if((L[N] + L[V]) == 7 && choice =='7'){
+            playmusic()
+            document.querySelectorAll("h1")[1].innerHTML = `${L[N] + L[V]} =>You Won 3x Rs.${3*bet}`
+            win()
+            document.getElementsByClassName("wish")[0].setAttribute("src","WIN-GIF.gif")
+            document.querySelectorAll("h1")[2].innerHTML = `Balance:${balance += 3*bet}`
+            document.getElementsByClassName("card1")[0].style.display = "flex"
+            document.getElementsByClassName("card3")[0].style.display ="flex"                                                             
+        }
+        else if((L[N] + L[V]) > 7 && choice == "7UP"){
+            playmusic()
+            document.querySelectorAll("h1")[1].innerHTML = `${L[N] + L[V]} =>You Won 2xbet Rs.${2*bet}`
+            win()
+             document.getElementsByClassName("wish")[0].setAttribute("src","WIN-GIF.gif")
+             document.querySelectorAll("h1")[2].innerHTML = `Balance:${balance += 2*bet}` 
+             document.getElementsByClassName("card2")[0].style.display = "flex"
+            document.getElementsByClassName("card3")[0].style.display = "flex"                                                            
+        }
+        else if((L[N] + L[V]) < 7 && choice == "7Down"){
+            playmusic()
+            document.querySelectorAll("h1")[1].innerHTML = `${L[N] + L[V]} =>You Won 2x bet Rs.${2*bet}`
+            win()
+            document.getElementsByClassName("wish")[0].setAttribute("src","WIN-GIF.gif")
+            document.querySelectorAll("h1")[2].innerHTML = `Balance:${balance += bet}` 
+            document.getElementsByClassName("card1")[0].style.display = "flex"
+            document.getElementsByClassName("card2")[0].style.display = "flex"                                                            
+        }
+        else{
+            playmusic()
+            document.querySelectorAll("h1")[1].innerHTML = `${L[N] + L[V]} =>Sorry You Lost Rs.${0*bet}`
+            snake()
+            document.getElementsByClassName("wish")[0].setAttribute("src","LOS-GIF.gif") 
+            document.querySelectorAll("h1")[2].innerHTML = `Balance:${balance =balance-bet}` 
+            document.getElementsByClassName("card1")[0].style.display = "flex"
+            document.getElementsByClassName("card2")[0].style.display = "flex" 
+            document.getElementsByClassName("card3")[0].style.display = "flex"                                                                                                                                                                                                                                                                                                                                                                   
+        }
+    }
+
+    </script>
+</body>
+</html>
+
